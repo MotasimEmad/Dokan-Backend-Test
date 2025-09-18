@@ -30,44 +30,4 @@ class CommentController extends Controller
 
         return $this->createdResponse(new CommentResource($comment), 'Comment created successfully');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Comment $comment): JsonResponse
-    {
-        $this->authorize('view', $comment);
-
-        $comment->load('user');
-
-        return $this->successResponse(new CommentResource($comment));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(StoreCommentRequest $request, Comment $comment): JsonResponse
-    {
-        $this->authorize('update', $comment);
-
-        $comment->update([
-            'content' => $request->content,
-        ]);
-
-        $comment->load('user');
-
-        return $this->successResponse(new CommentResource($comment), 'Comment updated successfully');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Comment $comment): JsonResponse
-    {
-        $this->authorize('delete', $comment);
-
-        $comment->delete();
-
-        return $this->deletedResponse('Comment deleted successfully');
-    }
 }
